@@ -12,34 +12,30 @@
 
 <p>
   <strong>Avatar attached?:</strong>
-  <%= @user.avatar.attached? %>
+  <%#= @user.avatar.attached? %>
 </p>
 
 <p>
   <strong>Avatar url_for(user.avatar):</strong>
-  <%= link_to url_for(@user.avatar), url_for(@user.avatar) %>
+  <%#= link_to url_for(@user.avatar), url_for(@user.avatar) %>
 </p>
 
 <p>
-  <%= image_tag @user.avatar.variant(resize: '25x25') if @user.avatar.image? %>
-  <%= image_tag rails_blob_path(@user.avatar) if @user.avatar.image? %>
+  <%#= image_tag @user.avatar.variant(resize: '25x25') if @user.avatar.image? %>
+  <%#= image_tag rails_blob_path(@user.avatar) if @user.avatar.image? %>
 </p>
 
 <p>
   <% @user.images.each do |image| %>
-    <%= image_tag image.variant(resize: '50x50') if image.image? %>
+    <%#= image_tag image.variant(resize: '50x50') if image.image? %>
   <% end %>
 </p>
 
 <p>
   <%# image_tag url_for(@user.avatar) if @user.avatar.image? %>
   <% @user.images.each do |image| %>
-    <%= image_tag image.variant(resize: '100x100') if image.image? %>
+    <%#= image_tag image.variant(resize: '100x100') if image.image? %>
   <% end %>
-</p>
-
-<p>
-  <%= @user.avatar.content_type %>
 </p>
 
 <%= link_to 'Edit', edit_user_path(@user) %> |

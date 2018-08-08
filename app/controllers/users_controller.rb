@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :delete_image_attachment]
 
   # GET /users
   # GET /users.json
@@ -61,6 +61,16 @@ class UsersController < ApplicationController
     end
   end
 
+  def delete_image_attachment
+    #@image = ActiveStorage::Blob.find_signed(params[:attachment_id])
+    @image = @user.images.find(params[:attachment_id])
+    #puts @image.filename
+    #@image.delete
+    @image.purge
+    @image.purge_later
+    redirect_to edit_user_url
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
@@ -69,6 +79,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:first_name, :last_name, :avatar, images: [])
+      params.require(:user).permit(:first_name, :last_name, :attachment_id, :avatar, images: [])
     end
 end

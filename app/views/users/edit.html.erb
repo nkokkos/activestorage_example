@@ -2,5 +2,33 @@
 
 <%= render 'form', user: @user %>
 
+<div>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Download</th>
+      <th scope="col">Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+   <% @user.images.each do |upload| %>
+    <tr>
+      <th scope="row"><%= upload.id %></th>
+      <td><%= upload.filename || "default" %></td>
+      <td><%= link_to upload.filename, rails_blob_path(upload, disposition: :attachment) %></td>
+      <td><%= link_to 'Remove', delete_image_attachment_user_url(:id => @user.id, :attachment_id => upload.id),
+                method: :delete,
+                data: { confirm: 'Are you sure?' } %>
+      </td>
+    </tr>
+    <% end %>
+
+  </tbody>
+</table>
+
+</div>
+
 <%= link_to 'Show', @user %> |
 <%= link_to 'Back', users_path %>
