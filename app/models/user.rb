@@ -1,4 +1,23 @@
 class User < ApplicationRecord
   #has_one_attached :avatar
-  has_many_attached :images
+  before_destroy    :delete_all_attachments
+  has_many_attached :images, dependent: :destroy
+
+
+  private
+  
+  def delete_all_attachments
+
+    ActiveRecord::Base.transaction do
+      self.images.each do |image|
+        if !image.blob.nil?
+          file = ActiveStorage::Blob.find_signed(image.signed_id)
+          if !file.nil?  
+            file.purge_later
+          end
+        end
+      end
+    end
+  end
+
 end
