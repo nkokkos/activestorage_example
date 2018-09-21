@@ -22,6 +22,10 @@
                 method: :delete,
                 data: { confirm: 'Are you sure?' } %>
       </td>
+      <td><%= upload.content_type %><%= upload.filename.parameters %></td>
+      <td><%= link_to 'Download Streamed', download_image_attachment_user_url(:id => @user.id, :attachment_id => upload.id),
+            remote: false, method: :get %>
+      </td>
     </tr>
     <% end %>
 

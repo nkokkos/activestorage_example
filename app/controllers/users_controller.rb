@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy, :delete_image_attachment]
+  before_action :set_user, only: [:show, :edit, :update, 
+                :destroy, :delete_image_attachment, :download_image_attachment]
 
   # GET /users
   # GET /users.json
@@ -66,10 +67,24 @@ class UsersController < ApplicationController
     @image = @user.images.find(params[:attachment_id])
     #puts @image.filename
     #@image.delete
-    @image.purge
+    #@image.purge
     @image.purge_later
     redirect_to edit_user_url
   end
+
+  def download_image_attachment
+
+    @image = @user.images.find(params[:attachment_id])  
+    #response.headers["Content-Type"] = @image.content_type
+    response.headers["Content-Type"] = "application/octet-stream"
+    response.headers["Content-Disposition"] = "attachment; #{@image.filename.parameters}"
+    @image.download do |chunk|
+      response.stream.write(chunk)
+    end
+    ensure
+      response.stream.close
+  end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.
