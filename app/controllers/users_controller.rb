@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, 
-                :destroy, :delete_image_attachment, :download_image_attachment]
+  include ActionController::Live
+  
+  before_action :set_user, only: [:show, :edit, :update, :destroy, 
+                                  :delete_image_attachment, :download_image_attachment]
 
   # GET /users
   # GET /users.json

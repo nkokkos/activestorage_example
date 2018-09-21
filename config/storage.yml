@@ -4,7 +4,9 @@ test:
 
 local:
   service: Disk
-  root: <%= Rails.root.join("storage") %>
+  # root: <%= Rails.root.join("storage") %>
+  # use the following for saving files at a different path
+  root: <%= File.dirname("/home/vagrant/files/storage/") %>
 
 # Use rails credentials:edit to set the AWS secrets (as aws:access_key_id|secret_access_key)
 # Endpoint:  http://192.168.2.200:9000  http://192.168.2.144:9000  http://127.0.0.1:9000
