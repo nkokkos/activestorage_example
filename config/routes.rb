@@ -1,6 +1,20 @@
 Rails.application.routes.draw do
-require 'sidekiq/web'
-mount Sidekiq::Web => '/sidekiq'
+
+  devise_for :users, :controllers => { :sessions => "sessions" },
+      skip: [:registrations, :passwords, :confirmations, :unlocks]
+   
+
+  require 'sidekiq/web'
+  
+  mount Sidekiq::Web => '/sidekiq'
+
+  #  scope module: :api, path: 'api' do
+  #    scope module: :v1 do
+  #      devise_for :users, controllers: {
+  #           sessions: 'api/v1/users/sessions',
+  #       }, skip: [:registrations, :passwords, :confirmations, :unlocks]
+  #    end
+  #  end
 
   resources :users do
     member do 

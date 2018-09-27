@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
   include ActionController::Live
   
+  #before_action :authenticate_user!, :only => [:index, :new]
+  
   before_action :set_user, only: [:show, :edit, :update, :destroy, 
                                   :delete_image_attachment, :download_image_attachment]
 
